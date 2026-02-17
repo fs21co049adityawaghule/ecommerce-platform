@@ -1,11 +1,11 @@
 services:
   # Backend API
   - type: web
-    name: shopease-backend
+    name: ecommerce-backend
     env: node
     region: oregon
     plan: starter
-    buildCommand: npm install && npm run build
+    buildCommand: npm install
     startCommand: npm start
     envVars:
       - key: NODE_ENV
@@ -16,30 +16,11 @@ services:
         sync: false
       - key: JWT_SECRET
         generateValue: true
-      - key: JWT_EXPIRE
-        value: 7d
+      - key: JWT_EXPIRES_IN
+        value: 30d
       - key: STRIPE_SECRET_KEY
         sync: false
       - key: STRIPE_WEBHOOK_SECRET
         sync: false
-      - key: CLIENT_URL
-        fromService:
-          name: shopease-frontend
-          type: web
-          envVarKey: RENDER_EXTERNAL_URL
-
-  # Frontend (if deploying on Render instead of Vercel)
-  - type: web
-    name: shopease-frontend
-    env: static
-    buildCommand: cd frontend && npm install && npm run build
-    staticPublishPath: ./frontend/dist
-    envVars:
-      - key: NEXT_PUBLIC_API_URL
-        fromService:
-          name: shopease-backend
-          type: web
-          envVarKey: RENDER_EXTERNAL_URL
-          template: "{{.}}:10000/api"
-      - key: NEXT_PUBLIC_STRIPE_PUBLIC_KEY
+      - key: FRONTEND_URL
         sync: false

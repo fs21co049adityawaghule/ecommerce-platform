@@ -11,8 +11,8 @@ const nextConfig = {
     ],
   },
   env: {
-    API_URL: process.env.API_URL || 'http://localhost:5000/api',
-    STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY,
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api',
+    NEXT_PUBLIC_STRIPE_KEY: process.env.NEXT_PUBLIC_STRIPE_KEY,
   },
 }
 
